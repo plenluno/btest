@@ -12,17 +12,25 @@ def colorize(text, color)
 end
 
 def count(status)
-  return $data[status].length
+  if $data[status].instance_of?(Array) then
+    return $data[status].length
+  else
+    return 0
+  end
 end
 
 def test(status)
+  if !$data[status].instance_of?(Array) then
+    return 0
+  end
+
   ng = 0
   for cmd in $data[status] do
     puts colorize("[BTEST RUN] ", GREEN) + cmd
     if (status == "success") then
-      cmd = "./btest.sh " + cmd
+      cmd = File.dirname(__FILE__) + "/btest.sh " + cmd
     elsif (status == "error") then
-      cmd = "./btest.sh -e " + cmd
+      cmd = File.dirname(__FILE__) + "/btest.sh -e " + cmd
     else
       assert(false)
     end
