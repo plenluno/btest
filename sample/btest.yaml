@@ -1,0 +1,6 @@
+success:
+    - gcc sample/success.c
+    - rm a.out
+error:
+    - gcc sample/error.c
+    - rm a.out
