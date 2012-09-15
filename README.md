@@ -1,7 +1,7 @@
 btest
 =====
 
-btest is a unit testing tool which reports whether your commands succeed or fail as expected.
+btest is a testing tool which checks whether your commands succeed or fail as expected.
 
 ### Usage
 
@@ -9,7 +9,7 @@ btest is a unit testing tool which reports whether your commands succeed or fail
  	btest-report [yaml]
 
 'btest' shows the results of your command tests in console.  
-'btest-report' generates XML reports for CI under the directory 'report'.
+'btest-report' generates test reports in JUnit XML format under the directory 'report'.
 
 ### YAML
 
