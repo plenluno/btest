@@ -20,7 +20,7 @@ def count(status)
 end
 
 def test(status)
-  return if !$data[status].instance_of?(Array)
+  return 0 if !$data[status].instance_of?(Array)
 
   ng = 0
   for cmd in $data[status] do
