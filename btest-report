@@ -1,0 +1,12 @@
+#!/usr/bin/ruby
+
+if !ARGV[0] then
+  puts "usage: btest-report [yaml]"
+  exit 1
+end
+
+ENV["CI_REPORTS"] = File.expand_path("report")
+ENV["BTEST_YAML"] = File.expand_path(ARGV[0])
+ENV["BTEST_CURDIR"] = Dir::getwd
+
+exec "cd " + File.dirname(__FILE__) + " && rake ci:setup:rspec spec"

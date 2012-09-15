@@ -1,0 +1,38 @@
+#!/usr/bin/ruby
+
+require "yaml"
+
+$data = YAML.load(IO.read(ENV["BTEST_YAML"]))
+$index = {"success"=>0, "error"=>0}
+
+def spec(status)
+  return if !$data[status].instance_of?(Array)
+
+  if status == "success" then
+    message = "should succeed"
+    option = ""
+  elsif status == "error" then
+    message = "should fail"
+    option = "-e "
+  else
+    assert(false)
+  end
+
+  describe "btest-" + status do
+    for cmd in $data[status] do
+      it "'" + cmd + "' " + message do
+        IO.popen(
+          "cd " + ENV["BTEST_CURDIR"] + " && " +
+            File.dirname(__FILE__) + "/btest-each " +
+              option + $data[status][$index[status]] +
+                " >/dev/null 2>&1"
+        ) {|io|}
+        $index[status] += 1
+        $?.exitstatus.should == 0
+      end
+    end
+  end
+end
+
+spec("success")
+spec("error")

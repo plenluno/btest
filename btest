@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-require 'yaml'
+require "yaml"
 
 $data = YAML.load(ARGF.read())
 
@@ -20,21 +20,23 @@ def count(status)
 end
 
 def test(status)
-  if !$data[status].instance_of?(Array) then
-    return 0
-  end
+  return if !$data[status].instance_of?(Array)
 
   ng = 0
   for cmd in $data[status] do
     puts colorize("[BTEST RUN] ", GREEN) + cmd
     if (status == "success") then
-      cmd = File.dirname(__FILE__) + "/btest.sh " + cmd
+      option = ""
     elsif (status == "error") then
-      cmd = File.dirname(__FILE__) + "/btest.sh -e " + cmd
+      option = "-e "
     else
       assert(false)
     end
-    IO.popen(cmd) { |io| puts io.readlines }
+    IO.popen(
+      File.dirname(__FILE__) + "/btest-each " + option + cmd
+    ) {|io|
+      puts io.readlines
+    }
     if ($?.exitstatus == 1) then
       ng += 1
     end
