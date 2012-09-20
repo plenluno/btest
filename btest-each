@@ -13,7 +13,7 @@ else
     ERR="FALSE"
 fi
 shift `expr $OPTIND - 1`
-$@
+eval $@
 
 if test $? -eq 0; then
     if [ $ERR = "FALSE" ]; then
