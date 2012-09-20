@@ -1,8 +1,8 @@
 #!/bin/sh
 
-DEFAULT=$'\e[0m'
-RED=$'\e[0;31m'
-GREEN=$'\e[0;32m'
+DEFAULT="\033[0m"
+RED="\033[31m"
+GREEN="\033[32m"
 
 OK=$GREEN"[BTEST OK ]"$DEFAULT
 NG=$RED"[BTEST NG ]"$DEFAULT
