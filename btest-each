@@ -17,18 +17,18 @@ eval $@
 
 if test $? -eq 0; then
     if [ $ERR = "FALSE" ]; then
-        echo $OK $@
+        echo $OK $GREEN$@$DEFAULT
         exit 0
     else
-        echo $NG $@
+        echo $NG $GREEN$@$DEFAULT
         exit 1
     fi
 else
     if [ $ERR = "TRUE" ]; then
-        echo $OK $@
+        echo $OK $RED$@$DEFAULT
         exit 0
     else
-        echo $NG $@
+        echo $NG $RED$@$DEFAULT
         exit 1
     fi
 fi
