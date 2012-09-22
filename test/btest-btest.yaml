@@ -1,0 +1,2 @@
+success:
+    - ./btest test/btest.yaml

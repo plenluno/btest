@@ -5,6 +5,13 @@ require "yaml"
 $data = YAML.load(IO.read(ENV["BTEST_YAML"]))
 $index = {"success"=>0, "error"=>0}
 
+def escape(cmd)
+  return '"' + cmd.gsub('\\', '\\\\\\\\').
+                   gsub('`', '\\\`').
+                   gsub('$', '\\$').
+                   gsub('"', '\\"') + '"'
+end
+
 def spec(status)
   return if !$data[status].instance_of?(Array)
 
@@ -24,7 +31,7 @@ def spec(status)
         IO.popen(
           "cd " + ENV["BTEST_CURDIR"] + " && " +
             File.dirname(__FILE__) + "/btest-each " +
-              option + $data[status][$index[status]] +
+              option + escape($data[status][$index[status]]) +
                 " >/dev/null 2>&1"
         ) {|io|}
         $index[status] += 1

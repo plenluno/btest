@@ -19,6 +19,13 @@ def count(status)
   end
 end
 
+def escape(cmd)
+  return '"' + cmd.gsub('\\', '\\\\\\\\').
+                   gsub('`', '\\\`').
+                   gsub('$', '\\$').
+                   gsub('"', '\\"') + '"'
+end
+
 def test(status)
   return 0 if !$data[status].instance_of?(Array)
 
@@ -33,7 +40,7 @@ def test(status)
       assert(false)
     end
     IO.popen(
-      File.dirname(__FILE__) + "/btest-each " + option + cmd
+      File.dirname(__FILE__) + "/btest-each " + option + escape(cmd)
     ) {|io|
       puts io.readlines
     }
