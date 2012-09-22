@@ -2,7 +2,7 @@ success:
     - grep a\ b test/btest.yaml
     - grep 'a b' test/btest.yaml
     - grep "a b" test/btest.yaml
-    - grep \\$ test/btest.yaml | wc -l | grep 1
-    - grep \\\` test/btest.yaml | wc -l | grep 1
+    - grep \\$ test/btest.yaml | wc -l | grep ' 1'
+    - grep \\\` test/btest.yaml | wc -l | grep " 1"
 error:
     - grep a b ./btest.yaml
